@@ -24,6 +24,17 @@ Unlike my analytics-focused projects, this one emphasizes:
 - Change detection
 - Serverless architecture
 
+### User Interface
+![Mobile UI - Play Logging Tab](../../assets/img/mtg/screenshot-log-tab.jpg)
+
+![Mobile UI - Stats Tab](../../assets/img/mtg/screenshot-stats-tab.jpg)
+
+Mobile-first interface to:
+- Log games
+- Track results
+- View deck statistics
+- Randomly pick decks
+
 ---
 
 ## Objectives
@@ -63,6 +74,14 @@ This allows automatic detection of:
 
 _Serverless architecture separating automated deck ingestion from user-driven play logging and analytics._
 
+
+### Raw Snapshot Storage
+![S3 Snapshot General](../../assets/img/mtg/screenshot-S3-bucket-general.png)
+![S3 Snapshot Detail](../../assets/img/mtg/screenshot-S3-bucket-detail.png)
+
+Each sync stores a timestamped JSON snapshot if there is a new deck or a change to an existing one:
+archidekt/user/&le;user&ge;/decks/&le;deck_id&ge;/snapshot_ts=YYYYMMDDTHHMMSSZ.json
+
 ---
 
 ### 2. Play Events Logging
@@ -85,6 +104,13 @@ Timestamps are stored in UTC but rendered in the user's local timezone in the UI
 
 ## Data Modeling (DynamoDB)
 The system separates **current state** from **immutable events**, following event-driven modeling principles.
+
+![DynamoDB Play Events Item](../../assets/img/mtg/screenshot-play_events-item.png)
+![DynamoDB Card Events Item](../../assets/img/mtg/screenshot-card_events-item.png)
+
+Play events store immutable game results.
+
+Card events track ADD / REMOVE / QTY_CHANGE over time.
 
 ### 1. Deck State Table
 Stores the latest known version of each deck:
@@ -175,6 +201,9 @@ Returns:
 - Last played timestamp
 
 ### /pick
+
+![Deck Picker UI](../../assets/img/mtg/screenshot-random-pick.jpg)
+
 Returns a weighted random selection of decks based on:
 - Lower number of games played
 - Longer time since last played
