@@ -118,6 +118,7 @@ Attributes:
 - last_added_at
 - last_removed_at
 - in_deck (boolean)
+
 Supports queries like:
 - Which cards have been in this deck the longest?
 - When was this card last removed?
@@ -135,7 +136,7 @@ Enables reconstruction of deck evolution over time.
 ---
 
 ### 5. Play Events
-**PK:** user_key ({source}#}{username})
+**PK:** user_key ({source}#{username})
 
 **SK:** played_at
 
