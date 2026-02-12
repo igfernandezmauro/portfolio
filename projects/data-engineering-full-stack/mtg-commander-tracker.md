@@ -128,7 +128,7 @@ Enables reconstruction of deck evolution over time.
 ---
 
 ### 5. Play Events
-**PK:** user_key (<source>#<username>)
+**PK:** user_key ({source}#}{username})
 **SK:** played_at
 Stores one row per game:
 - deck_id
