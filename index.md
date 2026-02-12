@@ -1,17 +1,40 @@
 ---
 layout: default
-title: Data Analytics Portfolio
+title: Ignacio Fernandez Mauro's Portfolio
 ---
 
-# Data Analytics Portfolio
+# About me
 
-Data analyst with a background in SQL and analytics workflows, focused on exploring real-world datasets to understand patterns, relationships, and drivers behind measurable outcomes. This portfolio presents hands-on analytics projects developed using Databricks and traditional BI tools, with an emphasis on exploratory analysis, statistical reasoning, and clear communication of results.
+I’m a data engineer and analyst with experience building end-to-end data platforms that include data ingestion, transformation, storage, and user-facing analytics. My recent projects span interactive dashboards, automated ETL pipelines, AWS cloud services, and full-stack integrations.
 
 **Core tools:** SQL · Databricks · Spark · Excel · Tableau · Statsmodels · GitHub
 
 ---
 
-## Featured Projects
+## Data Engineering & Full-Stack Projects
+
+---
+
+### 1. Magic: the Gathering Commander Tracker
+**Tools:** AWS Lambda · API Gateway · DynamoDB · S3 · JavaScript · React (UI) · Serverless REST APIs
+
+**Summary:**
+Built an autonomous system that syncs deck data from _Archidekt_, stores snapshots and diffs over time, tracks user-logged play events, and serves analytics via REST APIs. The UI allows game logging on mobile, time-zone converted timestamps, and a smart deck picker that balances freshness and randomness.
+
+**Key contributions:**
+- Event log design and DynamoDB modeling
+- Serverless cloud architecture (Lambda + S3 + DynamoDB)
+- API design with stage deployments and CORS
+- Frontend UI for asynchronous data updates
+- UX considerations for mobile data input
+
+**[View project →]**
+
+---
+
+## Data Analytics Projects
+
+---
 
 ### 1. Content Performance Analysis with Databricks
 **Tools:** Databricks · Spark · Python · Statsmodels · Matplotlib
