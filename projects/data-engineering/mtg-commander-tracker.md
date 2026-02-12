@@ -58,6 +58,13 @@ This allows automatic detection of:
 
 ---
 
+## Architecture Diagram
+![MTG Commander Tracker Architecture](../../assets/img/mtg/mtg-app-architecture-diagram.png)
+
+_Serverless architecture separating automated deck ingestion from user-driven play logging and analytics._
+
+---
+
 ### 2. Play Events Logging
 A mobile-friendly HTML + JavaScript form submits game data through API Gateway to a Lambda function.
 
@@ -73,39 +80,6 @@ Each play event stores:
 - asof_list_hash (deck snapshot reference)
 
 Timestamps are stored in UTC but rendered in the user's local timezone in the UI.
-
----
-
-flowchart TB
-  subgraph Lane1[Deck Sync (Automated)]
-    EB[EventBridge Scheduler]
-    L1[Lambda: Deck Sync]
-    A[Archidekt API]
-    S3[(S3: Raw Snapshots)]
-    D1[(DDB: Deck State)]
-    D2[(DDB: Deck Change Log)]
-    D3[(DDB: Cards Current)]
-    D4[(DDB: Card Events)]
-    EB --> L1 --> A
-    L1 --> S3
-    L1 --> D1
-    L1 --> D2
-    L1 --> D3
-    L1 --> D4
-  end
-  
-  subgraph Lane2[Game Logging + Analytics (User)]
-    U[Mobile Web UI]
-    APIG[API Gateway]
-    L2[Lambda: Play Logger]
-    L3[Lambda: Stats / Games / Pick]
-    D5[(DDB: Play Events)]
-    U --> APIG
-    APIG --> L2 --> D1
-    L2 --> D5
-    APIG --> L3 --> D5
-    L3 --> D1
-  end
 
 ---
 

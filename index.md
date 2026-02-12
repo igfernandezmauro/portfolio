@@ -56,7 +56,7 @@ Built an autonomous system that syncs deck data from _Archidekt_, stores snapsho
 - Frontend UI for asynchronous data updates
 - UX considerations for mobile data input
 
-**[View project →](projects/data-engineering-full-stack/mtg-commander-tracker.html)**
+**[View project →](projects/data-engineering/mtg-commander-tracker.html)**
 
 ---
 
