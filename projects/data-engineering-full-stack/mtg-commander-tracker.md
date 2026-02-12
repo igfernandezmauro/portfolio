@@ -71,6 +71,7 @@ Each play event stores:
 - turn_order
 - Optional metadata (store, feeling, notes, etc.)
 - asof_list_hash (deck snapshot reference)
+
 Timestamps are stored in UTC but rendered in the user's local timezone in the UI.
 
 ---
@@ -87,6 +88,7 @@ Stores the latest known version of each deck:
 - list_hash
 - normalized_mainboard
 - last_seen_at
+
 Used for UI dropdowns and freezing deck state at play time.
 
 ---
@@ -98,14 +100,18 @@ Store one row per deck update event
 - change_type (CREATED / UPDATED)
 - diff_summary
 - list_hash
+
 Provides auditability and change tracking.
 
 ---
 
 ### 3. Cards Current
 Tracks current card presence per deck:
+
 **PK:** deck_id
+
 **SK:** card_id
+
 Attributes:
 - qty
 - first_seen_at
@@ -123,19 +129,23 @@ Immutable log of card-level events:
 - ADD
 - REMOVE
 - QTY_CHANGE
+
 Enables reconstruction of deck evolution over time.
 
 ---
 
 ### 5. Play Events
 **PK:** user_key ({source}#}{username})
+
 **SK:** played_at
+
 Stores one row per game:
 - deck_id
 - result
 - opponents_commanders (list)
 - metadata
 - asof_list_hash
+
 Supports:
 - Win rate per deck
 - Recency tracking
@@ -161,6 +171,7 @@ Returns a weighted random selection of decks based on:
 - Lower number of games played
 - Longer time since last played
 - Controlled randomness
+
 This supports intelligent deck rotation decisions.
 
 ---
@@ -206,4 +217,5 @@ It bridges my interests in:
 - Backend systems
 - Event modeling
 - Real-world feedback loops
+
 And it shows hands-on experience with AWS infrastructure beyond pure analytics workflows.
