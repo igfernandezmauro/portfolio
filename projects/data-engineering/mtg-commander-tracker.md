@@ -80,7 +80,7 @@ _Serverless architecture separating automated deck ingestion from user-driven pl
 ![S3 Snapshot Detail](../../assets/img/mtg/screenshot-S3-bucket-detail.png)
 
 Each sync stores a timestamped JSON snapshot if there is a new deck or a change to an existing one:
-archidekt/user/&le;user&ge;/decks/&le;deck_id&ge;/snapshot_ts=YYYYMMDDTHHMMSSZ.json
+archidekt/user/&lt;user&gt;/decks/&lt;deck_id&gt;/snapshot_ts=YYYYMMDDTHHMMSSZ.json
 
 ---
 
@@ -265,3 +265,13 @@ It bridges my interests in:
 - Real-world feedback loops
 
 And it shows hands-on experience with AWS infrastructure beyond pure analytics workflows.
+
+---
+
+## What This Project Demostrates
+- Event-driven data modeling
+- NoSQL schema design (PK/SK + GSI)
+- Serverless architecture in AWS
+- Incremental sync + diffing
+- Time-aware analytics
+- Mobile-first UX
