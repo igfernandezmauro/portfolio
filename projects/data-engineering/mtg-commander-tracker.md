@@ -5,6 +5,8 @@ title: Magic: the Gathering Commander Tracker
 
 # Magic: the Gathering Commander Tracker (AWS Serverless Data Platform)
 
+_> Note: The live system writes to my personal AWS environment and is not publicly exposed. Screenshots and architecture details are provided instead._ 
+
 ## Project Overview
 
 This project is a serverless data engineering application that tracks my Magic: the Gathering Commander decks and real gameplay results.
@@ -26,8 +28,8 @@ Unlike my analytics-focused projects, this one emphasizes:
 
 ### User Interface
 <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap;">
-    <img src="../../assets/img/mtg/screenshot-log-tab.jpg" width="250">
-    <img src="../../assets/img/mtg/screenshot-stats-tab.jpg" width="250">
+    <img src="../../assets/img/mtg/screenshot-log-tab.jpg" width="280">
+    <img src="../../assets/img/mtg/screenshot-stats-tab.jpg" width="280">
 </div>  
 
 Mobile-first interface to:
@@ -204,7 +206,7 @@ Returns:
 ### /pick
 
 <p align="center">
-    <img src="../../assets/img/mtg/screenshot-random-pick.jpg" width="250">
+    <img src="../../assets/img/mtg/screenshot-random-pick.jpg" width="280">
 </p>
 
 Returns a weighted random selection of decks based on:
