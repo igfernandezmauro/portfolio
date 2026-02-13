@@ -25,9 +25,10 @@ Unlike my analytics-focused projects, this one emphasizes:
 - Serverless architecture
 
 ### User Interface
-![Mobile UI - Play Logging Tab](../../assets/img/mtg/screenshot-log-tab.jpg)
-
-![Mobile UI - Stats Tab](../../assets/img/mtg/screenshot-stats-tab.jpg)
+<div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap;">
+    <img src="../../assets/img/mtg/screenshot-log-tab.jpg" width="250">
+    <img src="../../assets/img/mtg/screenshot-stats-tab.jpg" width="250">
+</div>  
 
 Mobile-first interface to:
 - Log games
@@ -202,7 +203,9 @@ Returns:
 
 ### /pick
 
-![Deck Picker UI](../../assets/img/mtg/screenshot-random-pick.jpg)
+<p align="center">
+    <img src="../../assets/img/mtg/screenshot-random-pick.jpg" width="250">
+</p>
 
 Returns a weighted random selection of decks based on:
 - Lower number of games played
