@@ -128,7 +128,7 @@ Used for UI dropdowns and freezing deck state at play time.
 ---
 
 ### 2. Deck Change Log
-Store one row per deck update event
+Stores one row per deck update event
 - deck_id
 - changed_at
 - change_type (CREATED / UPDATED)
