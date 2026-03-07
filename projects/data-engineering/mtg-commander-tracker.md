@@ -12,7 +12,8 @@ _> Note: The live system writes to my personal AWS environment and is not public
 This project is a serverless data engineering application that tracks my Magic: the Gathering Commander decks and real gameplay results.
 
 It combines:
-- Automated deck ingestion from Archidekt
+- Cognito authenticated multi-user web app
+- Automated deck ingestion from Archidekt and on profile setup
 - Event-based logging from a mobile-friendly UI
 - Historical change tracking at deck and card level
 - Lightweight analytics endpoints for feedback loops
@@ -105,6 +106,25 @@ Timestamps are stored in UTC but rendered in the user's local timezone in the UI
 
 ---
 
+### 3. Authentication & User Isolation
+The application now uses Amazon Cognito for authentication and API Gateway JWT authorization to support multi-user access securely.
+
+Users authenticate through Cognito Hosted UI, and the frontend stores a short-lived ID token after login. That token is sent with protected API requests, and API Gateway validates it before invoking any Lambda function.
+
+On the backend, user identity is derived from the verified JWT claims rather than from frontend input. Each authenticated user is mapped to a canonical `user_key` in the format:
+
+`user#<cognito_sub>`
+
+This allows the system to isolate data access per user and prevents clients from requesting another user's data by modifying request parameters.
+
+To support external deck syncing without coupling app identity to third-party usernames, the system separates:
+- **Application identity** via Cognito (`user#<sub>`)
+- **External source identity** via stored Archidekt username
+
+This design supports secure multi-user access while keeping ingestion logic flexible for future integrations.
+
+---
+
 ## Data Modeling (DynamoDB)
 The system separates **current state** from **immutable events**, following event-driven modeling principles.
 
@@ -117,7 +137,12 @@ Card events track ADD / REMOVE / QTY_CHANGE over time.
 
 ### 1. Deck State Table
 Stores the latest known version of each deck:
-- deck_id (PK)
+
+**PK:** user_key (`user#{cognito_sub}`)
+
+**SK:** deck_id
+
+Attributes:
 - name
 - commander
 - featured_image
@@ -172,7 +197,7 @@ Enables reconstruction of deck evolution over time.
 ---
 
 ### 5. Play Events
-**PK:** user_key ({source}#{username})
+**PK:** user_key (`user#{cognito_sub}`)
 
 **SK:** played_at
 
@@ -187,6 +212,22 @@ Supports:
 - Win rate per deck
 - Recency tracking
 - Future card-level performance attribution
+
+---
+
+### 6. User Profile
+**PK:** user_key (`user#{cognito_sub}`)
+
+Attributes:
+- archidekt_enabled
+- archidekt_username
+- created_at
+- updated_at
+
+Used to:
+- Map Cognito users to external Archidekt accounts
+- Control which users are included in automated ingestion
+- Support immediate sync after profile updates
 
 ---
 
@@ -215,6 +256,20 @@ Returns a weighted random selection of decks based on:
 - Controlled randomness
 
 This supports intelligent deck rotation decisions.
+
+### /me/profile
+Manages per-user profile data for authenticated users
+
+It supports:
+- Retrieving the current user profile
+- Saving the user's Archidekt username
+- Enabling or disabling automated deck ingestion
+
+Profile data is stored by `user_key`, which is derived from the authenticated user's JWT rather tan supplied by the client. This ensures that profile updates are always scoped to the logged-in user.
+
+The profile record is used as the bridge between the application user and the external Archidekt account. Once a profile is saved with ingestion enabled, the backend can immediately trigger a targeted sync for that user, allowing newly linked decks to appear in the UI without waiting for the next scheduled ingestion cycle.
+
+This endpoint became a key part of the multi-user transition because it allows each user to configure deck ingestion independently while preserving secure data isolation.
 
 ---
 
@@ -253,8 +308,9 @@ This supports intelligent deck rotation decisions.
 - Pre-aggregated analytics table
 - Trend tracking over time
 - Simple dashboard visualization
-- Multi-user support
-- Authentication layer (API keys / IAM)
+- Richer matchup analytics
+- Ingestion status tracking
+- UI polish and tester feedbakc iteration
 
 ---
 
