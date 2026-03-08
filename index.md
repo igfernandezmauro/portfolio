@@ -19,6 +19,8 @@ My projects range from exploratory data analytics to fully serverless AWS data p
 - Amazon S3
 - API Gateway
 - EventBridge Scheduler
+- Amazon Cognito
+- Amazon CloudFront
 - Python
 - Event-driven architecture
 - Change detection via hashing
